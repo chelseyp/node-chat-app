@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "lodash": "^4.17.11",
+    "socket.io": "^2.1.1"
   }
 }
