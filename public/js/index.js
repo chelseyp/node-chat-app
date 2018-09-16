@@ -11,10 +11,5 @@ socket.on('disconnect', function() {
 
 socket.on('newMessage', function(msg) {
   console.log(msg);
-
-  socket.emit('createMessage', {
-     from: msg.from,
-     text: msg.text
-   });
 });
 
