@@ -28,10 +28,6 @@ io.on('connection', socket => {
     users.removeUser(socket.id);
     users.addUser(socket.id, params.name, params.room);
     
-    // io.emit -> io.to('The Office Fans').emit
-    // socket.broadcast.emit -> socket.broadcast.to('The Office Fans').emit
-    // socket.emit  
-
     console.log(params.room, users.getUserList(params.room));
 
     io.to(params.room).emit('updateUserList', users.getUserList(params.room));
@@ -46,12 +42,14 @@ io.on('connection', socket => {
     let user = users.getUser(socket.id);
 
     // socket.broadcast.emit('newMessage', generateMessage(msg.from, msg.text));
-    io.to(user.room).emit('newMessage', generateMessage(msg.from, msg.text));
+    io.to(user.room).emit('newMessage', generateMessage(user.name, msg.text));
     callback();
   });
   
   socket.on('createLocationMessage', (coords) => {
-    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+    let user = users.getUser(socket.id);
+
+    io.emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
   });
 
   socket.on('disconnect', () => {

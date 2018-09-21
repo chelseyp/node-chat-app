@@ -34,6 +34,8 @@ socket.on('disconnect', function() {
 });
 
 socket.on('updateUserList', function(users) {
+  $('#users').html('');
+  
   var ol = $('<ol></ol>');
 
   users.forEach(function(user) {
